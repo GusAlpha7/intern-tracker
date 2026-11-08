@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Fanyi 实习投递</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style id="css">
+/* Layout: one column; region tabs on top; each region has three lists (LinkedIn / Gmail / 官网) of tickable rows */
+:root{
+  --bg:#f4f6f5; --card:#ffffff; --fg:#17211d; --muted:#5f6d67; --line:#dce3e0; --accent:#1d6b55; --accent-soft:#e3f0eb; --done:#a1aca7; --warn:#a4462f;
+  --sans:"IBM Plex Sans",-apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101513;--card:#18201d;--fg:#e4ebe8;--muted:#95a39d;--line:#2a3531;--accent:#5fbf9f;--accent-soft:#1d2e28;--done:#5d6a65;--warn:#e08a72;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101513;--card:#18201d;--fg:#e4ebe8;--muted:#95a39d;--line:#2a3531;--accent:#5fbf9f;--accent-soft:#1d2e28;--done:#5d6a65;--warn:#e08a72;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-direction:column;gap:4px}
+h1{font-size:22px;font-weight:600;margin:0;text-wrap:balance}
+.sub{color:var(--muted);font-size:13px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.save{font-size:12px;color:var(--muted)}
+.save.err{color:var(--warn)}
+.tabs{display:flex;gap:8px}
+.tab{flex:1;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit;color:var(--fg);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tab[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.tab b{font-weight:600}
+.tab span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+section{display:flex;flex-direction:column;gap:8px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+h2{font-size:16px;font-weight:600;margin:0}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.list{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:10px 12px}
+.row+.row,.list>.add{border-top:1px solid var(--line)}
+.who{min-width:0;display:flex;flex-direction:column;gap:1px}
+.name{font-weight:500;overflow-wrap:anywhere}
+.meta{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.mono{font-family:var(--mono);font-size:12.5px;user-select:all}
+.note{font-size:12px;color:var(--accent)}
+.date{font-size:12px;font-variant-numeric:tabular-nums;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:0 6px;align-self:flex-start;margin-top:2px}
+.ticks{display:flex;gap:6px;align-items:center}
+.tick{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--muted);cursor:pointer;min-width:44px}
+.tick input{width:22px;height:22px;margin:0;accent-color:var(--accent);cursor:pointer}
+.del{background:none;border:none;color:var(--done);font:inherit;font-size:16px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px}
+.del.arm{color:var(--warn);font-size:12px}
+.row.done .name,.row.done .meta{text-decoration:line-through;color:var(--done)}
+.row.done .note,.row.done .date{opacity:.5}
+.empty{padding:14px 12px;color:var(--muted);font-size:13.5px}
+.add{display:flex;gap:6px;padding:8px 12px;flex-wrap:wrap}
+.add input{flex:1 1 140px;min-width:0;font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+.add button{font:inherit;font-size:14px;padding:6px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--card);cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+<div id="root"></div>
+<script type="application/json" id="data">[{"id": "i1", "r": "au", "ch": "li", "name": "Nick Zeniou", "sub": "Thermal Dawn", "note": "先请朋友介绍", "date": "", "c": false, "m": false, "done": false}, {"id": "i2", "r": "au", "ch": "li", "name": "Brent Clark", "sub": "Wattblock", "note": "可免费私信", "date": "", "c": false, "m": false, "done": false}, {"id": "i3", "r": "au", "ch": "li", "name": "Alexander Post", "sub": "MGA Thermal", "note": "", "date": "", "c": true, "m": false, "done": false}, {"id": "i4", "r": "au", "ch": "li", "name": "Tom Vandermark", "sub": "Australian Energy Upgrades", "note": "", "date": "", "c": true, "m": false, "done": false}, {"id": "i5", "r": "au", "ch": "li", "name": "Afnan Hannan", "sub": "Okra Solar", "note": "已免费私信", "date": "", "c": true, "m": true, "done": false}, {"id": "i6", "r": "au", "ch": "li", "name": "Leo Zhu", "sub": "Jinko ESS", "note": "校友，私信用请教版", "date": "", "c": false, "m": false, "done": false}, {"id": "i7", "r": "au", "ch": "li", "name": "Ashkan Vatani", "sub": "Star Scientific", "note": "私信用请教版", "date": "", "c": false, "m": false, "done": false}, {"id": "i8", "r": "au", "ch": "li", "name": "Andrew Forster", "sub": "EVX", "note": "", "date": "", "c": true, "m": false, "done": false}, {"id": "i9", "r": "au", "ch": "li", "name": "Garry Williams", "sub": "Empowered Offgrid", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i10", "r": "au", "ch": "li", "name": "Mike Wishart", "sub": "EcoJoule Energy", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i11", "r": "au", "ch": "li", "name": "Tian Hui Ting", "sub": "DC3 Tech", "note": "墨尔本", "date": "", "c": false, "m": false, "done": false}, {"id": "i12", "r": "au", "ch": "li", "name": "Marija Petkovic", "sub": "Energy Synapse", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i13", "r": "au", "ch": "li", "name": "Ross Warby", "sub": "Enervest", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i14", "r": "au", "ch": "li", "name": "Warwick Johnston", "sub": "SunWiz", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i15", "r": "au", "ch": "li", "name": "Lloyd Heinrich", "sub": "MetroElectro", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i16", "r": "au", "ch": "li", "name": "Thorsten Trupke", "sub": "BT Imaging", "note": "UNSW SPREE 教授", "date": "", "c": false, "m": false, "done": false}, {"id": "i17", "r": "au", "ch": "li", "name": "Dean Spaccavento", "sub": "Reposit Power", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i18", "r": "au", "ch": "li", "name": "Andrew Birch", "sub": "OpenSolar", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i19", "r": "au", "ch": "li", "name": "Steve Hoy", "sub": "Enosi", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i20", "r": "au", "ch": "li", "name": "Mark Dunn", "sub": "Wattwatchers", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i21", "r": "au", "ch": "li", "name": "Fabian Le Gay Brereton", "sub": "Gridcog", "note": "", "date": "", "c": false, "m": false, "done": false}, {"id": "i22", "r": "au", "ch": "gm", "name": "Spark Renewables", "sub": "people@sparkrenewables.com", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i23", "r": "au", "ch": "gm", "name": "Powerblocks", "sub": "julie@powerblocks.au", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i24", "r": "au", "ch": "gm", "name": "Fordan Solar", "sub": "info@fordan.com.au", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i25", "r": "au", "ch": "gm", "name": "PSC Energy", "sub": "support@pscenergy.com.au", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i26", "r": "au", "ch": "gm", "name": "LONGi Solar Australia", "sub": "au@longi.com", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i27", "r": "au", "ch": "gm", "name": "Solar Consulting", "sub": "carl@solarconsulting.com.au", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i28", "r": "au", "ch": "gm", "name": "UEG Energy", "sub": "info@uegpartners.com", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i29", "r": "au", "ch": "gm", "name": "100% Renewables", "sub": "info@100percentrenewables.com.au", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i30", "r": "au", "ch": "gm", "name": "Pingala", "sub": "projects@pingala.org.au", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i31", "r": "au", "ch": "gm", "name": "Energus", "sub": "sales@energus.com", "note": "", "date": "11-10", "c": false, "m": false, "done": false}, {"id": "i32", "r": "au", "ch": "gm", "name": "GridBank Energy", "sub": "hello@gridbank.com.au", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i33", "r": "au", "ch": "gm", "name": "Sinvesta Group", "sub": "PVEnergy.au@gmail.com", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i34", "r": "au", "ch": "gm", "name": "Hilts Group", "sub": "sam@hilts.com.au", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i35", "r": "au", "ch": "gm", "name": "Red's Power Solutions", "sub": "jake@redspowersolutions.com", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i36", "r": "au", "ch": "gm", "name": "Probec", "sub": "info@probec.com.au", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i37", "r": "au", "ch": "gm", "name": "VEC Group", "sub": "info@vecgroup.com.au", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i38", "r": "au", "ch": "gm", "name": "Sigenergy Australia", "sub": "info.au@sigenergy.com", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i39", "r": "au", "ch": "gm", "name": "Enhar", "sub": "directors@enhar.com.au", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i40", "r": "au", "ch": "gm", "name": "Cleantech Controls", "sub": "contact@cleantechcontrols.com.au", "note": "", "date": "11-11", "c": false, "m": false, "done": false}, {"id": "i41", "r": "au", "ch": "gm", "name": "Ekistica", "sub": "enquiries@ekistica.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i42", "r": "au", "ch": "gm", "name": "PowerSync", "sub": "info@powersync.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i43", "r": "au", "ch": "gm", "name": "Project Solar Group", "sub": "info@projectsolar.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i44", "r": "au", "ch": "gm", "name": "Matrix Energy Solar", "sub": "sales@matrixes.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i45", "r": "au", "ch": "gm", "name": "ND Solar Group", "sub": "admin@ndsolargroup.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i46", "r": "au", "ch": "gm", "name": "Solarpro", "sub": "info@solarpro.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i47", "r": "au", "ch": "gm", "name": "NRN", "sub": "support@nrn.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i48", "r": "au", "ch": "gm", "name": "Power Control Engineers", "sub": "info@pceng.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i49", "r": "au", "ch": "gm", "name": "ACEN Australia", "sub": "info@acenrenewables.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i50", "r": "au", "ch": "gm", "name": "Catch Power", "sub": "sales@catchpower.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i51", "r": "au", "ch": "gm", "name": "ElectraGlobe", "sub": "engineering@electraglobe.com", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i52", "r": "au", "ch": "gm", "name": "ITP Renewables", "sub": "info@itpau.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i53", "r": "au", "ch": "gm", "name": "Rainbow Power Company", "sub": "team@rpc.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i54", "r": "au", "ch": "gm", "name": "Stralis Energy", "sub": "info@stralisenergy.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i55", "r": "au", "ch": "gm", "name": "Apricus Australia", "sub": "hello@apricus.com.au", "note": "", "date": "11-12", "c": false, "m": false, "done": false}, {"id": "i56", "r": "au", "ch": "web", "name": "Equans Solar & Storage", "sub": "Intern – Geotechnical/Geophysics · SEEK", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i57", "r": "au", "ch": "web", "name": "Stonewater Energy", "sub": "Power Systems Engineer Intern · LinkedIn", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i58", "r": "au", "ch": "web", "name": "Sungrow", "sub": "Technical Service Intern · LinkedIn", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i59", "r": "au", "ch": "web", "name": "Sungrow", "sub": "Technical Sales Engineering Intern (C&I) · LinkedIn", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i60", "r": "au", "ch": "web", "name": "Smart Commercial Energy", "sub": "Renewable Energy Intern · 官网", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i61", "r": "au", "ch": "web", "name": "Aussie Hybrid Solar", "sub": "Student Placement · LinkedIn", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i62", "r": "au", "ch": "web", "name": "Jemena", "sub": "Intern Program EOI · LiveHire", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i63", "r": "au", "ch": "web", "name": "Zinfra", "sub": "Intern Program EOI · LiveHire", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i64", "r": "au", "ch": "web", "name": "SunDrive Solar", "sub": "Graduate / Intern EOI · Lever", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i65", "r": "au", "ch": "web", "name": "Tindo Solar", "sub": "Engineering EOI · 官网", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i66", "r": "au", "ch": "web", "name": "Neoen Australia", "sub": "Spontaneous application · 官网", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i67", "r": "au", "ch": "web", "name": "FRV Australia", "sub": "Engineering EOI · 官网", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i68", "r": "au", "ch": "web", "name": "CleanPeak Energy", "sub": "Internship EOI · Employment Hero", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i69", "r": "au", "ch": "web", "name": "Tilt Renewables", "sub": "EOI · Employment Hero", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i70", "r": "au", "ch": "web", "name": "5B Australia", "sub": "Project Engineering Intern · Employment Hero", "note": "10/21–10/22 已投", "date": "", "c": false, "m": false, "done": true}, {"id": "i71", "r": "au", "ch": "web", "name": "RayGen", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i72", "r": "au", "ch": "web", "name": "Jinko Solar Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i73", "r": "au", "ch": "web", "name": "AlphaESS Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i74", "r": "au", "ch": "web", "name": "Hydrostor", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i75", "r": "au", "ch": "web", "name": "SwitchDin", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i76", "r": "au", "ch": "web", "name": "Fox ESS Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i77", "r": "au", "ch": "web", "name": "Goldwind Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i78", "r": "au", "ch": "web", "name": "SMA Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i79", "r": "au", "ch": "web", "name": "Energy Bay", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i80", "r": "au", "ch": "web", "name": "Huawei Digital Power Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i81", "r": "au", "ch": "web", "name": "Beyond Electrical Engineering", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i82", "r": "au", "ch": "web", "name": "Windpower & Solar Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i83", "r": "au", "ch": "web", "name": "Canadian Solar / e-STORAGE", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i84", "r": "au", "ch": "web", "name": "Akaysha Energy", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i85", "r": "au", "ch": "web", "name": "Bespoke Energy", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i86", "r": "au", "ch": "web", "name": "Solarhub", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i87", "r": "au", "ch": "web", "name": "1414 Degrees", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i88", "r": "au", "ch": "web", "name": "GridStore Energy", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i89", "r": "au", "ch": "web", "name": "Grid Power Design", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i90", "r": "au", "ch": "web", "name": "Iconic Solar", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i91", "r": "au", "ch": "web", "name": "Community Power Agency", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i92", "r": "au", "ch": "web", "name": "Graphite Energy", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i93", "r": "au", "ch": "web", "name": "Global Power Generation Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i94", "r": "au", "ch": "web", "name": "Trina Solar Australia", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i95", "r": "au", "ch": "web", "name": "GSES", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i96", "r": "au", "ch": "web", "name": "Australia Wide Solar", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i97", "r": "au", "ch": "web", "name": "SCE Solar", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i98", "r": "au", "ch": "web", "name": "Ecovantage", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i99", "r": "au", "ch": "web", "name": "LAVO", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i100", "r": "au", "ch": "web", "name": "Clean Hydrogen Technologies", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i101", "r": "au", "ch": "web", "name": "Energy Estate", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i102", "r": "au", "ch": "web", "name": "Relectrify", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i103", "r": "au", "ch": "web", "name": "Eku Energy", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i104", "r": "au", "ch": "web", "name": "Evergen", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i105", "r": "au", "ch": "web", "name": "Open Instruments", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i106", "r": "au", "ch": "web", "name": "Hysata", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i107", "r": "au", "ch": "web", "name": "Rux Energy", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}, {"id": "i108", "r": "au", "ch": "web", "name": "Energetics", "sub": "官网表单", "note": "Gmail 搜 \"website form\" 有正文", "date": "", "c": false, "m": false, "done": false}]</script>
+<script id="app">
+(function(){
+const HEAD='<title>Fanyi 实习投递</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">';
+const LS="fanyi-intern-v1";
+let items=JSON.parse(document.getElementById("data").textContent);
+let region="au", armed=null, timer=null, art=null, mode="init";
+try{const t=localStorage.getItem(LS+"-tab"); if(t==="au"||t==="cn")region=t;}catch(e){}
+if(location.hash==="#cn"||location.hash==="#au")region=location.hash.slice(1);
+
+const CH=[["li","LinkedIn","人名","公司 / 备注"],["gm","Gmail","公司","邮箱 / 备注"],["web","官网","公司","岗位 / 渠道"]];
+const RG=[["au","澳洲"],["cn","国内"]];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isDone=i=>i.ch==="li"?i.m:i.done;
+const fmtDate=d=>{if(!d)return"";const[m,dd]=d.split("-");const wk=["日","一","二","三","四","五","六"][new Date(2026,+m-1,+dd).getDay()];return `周${wk} ${+m}/${+dd}`};
+
+function render(){
+  const root=document.getElementById("root");
+  const tot=r=>{const a=items.filter(i=>i.r===r);return [a.filter(isDone).length,a.length]};
+  let h=`<div class="wrap"><header><h1>实习投递</h1><div class="sub"><span>勾选自动保存</span><span class="save" id="save"></span></div></header>
+  <div class="tabs" role="tablist">${RG.map(([k,l])=>{const[d,n]=tot(k);return `<button class="tab" role="tab" data-tab="${k}" aria-selected="${region===k}"><b>${l}</b><span>${d} / ${n}</span></button>`}).join("")}</div>`;
+  for(const[ch,label,ph1,ph2] of CH){
+    const rows=items.filter(i=>i.r===region&&i.ch===ch);
+    const d=rows.filter(isDone).length;
+    const extra=ch==="li"?` · 已 Connect ${rows.filter(i=>i.c).length}`:"";
+    h+=`<section><div class="sh"><h2>${label}</h2><span class="cnt">完成 ${d} / ${rows.length}${extra}</span></div><div class="list">`;
+    if(!rows.length)h+=`<div class="empty">还没有，在下面添加第一条。</div>`;
+    for(const i of rows){
+      const sub=ch==="gm"?`<span class="meta mono">${esc(i.sub)}</span>`:(i.sub?`<span class="meta">${esc(i.sub)}</span>`:"");
+      const ticks=ch==="li"
+        ?`<label class="tick"><input type="checkbox" data-k="c" data-id="${i.id}" ${i.c?"checked":""}>Connect</label><label class="tick"><input type="checkbox" data-k="m" data-id="${i.id}" ${i.m?"checked":""}>私信</label>`
+        :`<label class="tick"><input type="checkbox" data-k="done" data-id="${i.id}" ${i.done?"checked":""}>${ch==="gm"?"已发":"已投"}</label>`;
+      h+=`<div class="row${isDone(i)?" done":""}"><div class="who"><span class="name">${esc(i.name)}</span>${sub}${i.note?`<span class="note">${esc(i.note)}</span>`:""}${i.date?`<span class="date">${fmtDate(i.date)}</span>`:""}</div>
+      <div class="ticks">${ticks}<button class="del${armed===i.id?" arm":""}" data-del="${i.id}" aria-label="删除 ${esc(i.name)}">${armed===i.id?"确认删除":"×"}</button></div></div>`;
+    }
+    h+=`<form class="add" data-ch="${ch}"><input id="a1-${region}-${ch}" placeholder="${ph1}" aria-label="${ph1}" required><input id="a2-${region}-${ch}" placeholder="${ph2}" aria-label="${ph2}"><button type="submit">添加</button></form></div></section>`;
+  }
+  h+=`</div>`;
+  root.innerHTML=h;
+  showSave();
+}
+function showSave(){
+  const el=document.getElementById("save"); if(!el)return;
+  el.className="save"+(mode==="err"?" err":"");
+  el.textContent={init:"",saving:"保存中…",saved:"已保存",local:"仅保存在这台设备",err:"没保存上，刷新后再试"}[mode]||"";
+}
+function buildDoc(){
+  const reset=(document.head.querySelector("style")||{}).textContent||"";
+  const css=document.getElementById("css").textContent;
+  const app=document.getElementById("app").textContent;
+  const json=JSON.stringify(items).replace(/</g,"\\u003c");
+  return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>'+reset+'</style></head><body>'+HEAD+'<style id="css">'+css+'</style><div id="root"></div><script type="application/json" id="data">'+json+'<\/script><script id="app">'+app+'<\/script></body></html>';
+}
+function save(){
+  try{localStorage.setItem(LS,JSON.stringify(items));}catch(e){}
+  if(!art){mode="local";showSave();return;}
+  mode="saving";showSave();
+  clearTimeout(timer);
+  timer=setTimeout(async()=>{
+    try{await art.publish(buildDoc());mode="saved";}
+    catch(e){mode=(e&&e.code==="conflict")?"saved":"err";}
+    showSave();
+  },1500);
+}
+document.addEventListener("change",e=>{
+  const t=e.target; if(!t.dataset||!t.dataset.id)return;
+  const i=items.find(x=>x.id===t.dataset.id); if(!i)return;
+  i[t.dataset.k]=t.checked;
+  if(t.dataset.k==="m"&&t.checked)i.c=true;
+  render();save();
+});
+document.addEventListener("click",e=>{
+  const tab=e.target.closest("[data-tab]");
+  if(tab){region=tab.dataset.tab;armed=null;try{localStorage.setItem(LS+"-tab",region)}catch(x){};render();return;}
+  const del=e.target.closest("[data-del]");
+  if(del){
+    const id=del.dataset.del;
+    if(armed===id){items=items.filter(x=>x.id!==id);armed=null;render();save();}
+    else{armed=id;render();setTimeout(()=>{if(armed===id){armed=null;render();}},3000);}
+  }
+});
+document.addEventListener("submit",e=>{
+  const f=e.target.closest("form.add"); if(!f)return;
+  e.preventDefault();
+  const [a,b]=f.querySelectorAll("input");
+  const name=a.value.trim(); if(!name)return;
+  const n=items.reduce((mx,x)=>Math.max(mx,+String(x.id).slice(1)||0),0)+1;
+  items.push({id:"i"+n,r:region,ch:f.dataset.ch,name,sub:b.value.trim(),note:"",date:"",c:false,m:false,done:false});
+  render();save();
+  const again=document.getElementById(a.id); if(again)again.focus();
+});
+render();
+(async()=>{
+  try{ if(window.claude&&window.claude.use){art=await window.claude.use("artifact");} }catch(e){art=null;}
+  if(!art){
+    try{const s=JSON.parse(localStorage.getItem(LS)); if(Array.isArray(s)&&s.length){items=s;render();}}catch(e){}
+    mode="local";showSave();
+  }
+})();
+})();
+</script>
+</body></html>
