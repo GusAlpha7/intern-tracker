@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
 <style id="css">
-/* Layout: one column; region tabs on top; each region has three lists (LinkedIn / Gmail / 官网) of tickable rows */
+/* Layout: two columns (澳洲 | 国内), each with three lists (LinkedIn / Gmail / 官网); stacks to one column on phones */
 :root{
   --bg:#f4f6f5; --card:#ffffff; --fg:#17211d; --muted:#5f6d67; --line:#dce3e0; --accent:#1d6b55; --accent-soft:#e3f0eb; --done:#a1aca7; --warn:#a4462f;
   --sans:"IBM Plex Sans",-apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
@@ -12,17 +12,18 @@
 :root[data-theme="dark"]{--bg:#101513;--card:#18201d;--fg:#e4ebe8;--muted:#95a39d;--line:#2a3531;--accent:#5fbf9f;--accent-soft:#1d2e28;--done:#5d6a65;--warn:#e08a72;color-scheme:dark}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
-.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.colh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:8px;border-bottom:2px solid var(--accent)}
+.colh b{font-size:19px;font-weight:600}
+.colh span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 header{display:flex;flex-direction:column;gap:4px}
 h1{font-size:22px;font-weight:600;margin:0;text-wrap:balance}
 .sub{color:var(--muted);font-size:13px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .save{font-size:12px;color:var(--muted)}
 .save.err{color:var(--warn)}
-.tabs{display:flex;gap:8px}
-.tab{flex:1;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit;color:var(--fg);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.tab[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft)}
-.tab b{font-weight:600}
-.tab span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 section{display:flex;flex-direction:column;gap:8px}
 .sh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 h2{font-size:16px;font-weight:600;margin:0}
@@ -56,9 +57,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 const HEAD='<title>Fanyi 实习投递</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">';
 const LS="fanyi-intern-v1";
 let items=JSON.parse(document.getElementById("data").textContent);
-let region="au", armed=null, timer=null, art=null, mode="init";
-try{const t=localStorage.getItem(LS+"-tab"); if(t==="au"||t==="cn")region=t;}catch(e){}
-if(location.hash==="#cn"||location.hash==="#au")region=location.hash.slice(1);
+let armed=null, timer=null, art=null, mode="init";
 
 const CH=[["li","LinkedIn","人名","公司 / 备注"],["gm","Gmail","公司","邮箱 / 备注"],["web","官网","公司","岗位 / 渠道"]];
 const RG=[["au","澳洲"],["cn","国内"]];
@@ -68,26 +67,29 @@ const fmtDate=d=>{if(!d)return"";const[m,dd]=d.split("-");const wk=["日","一",
 
 function render(){
   const root=document.getElementById("root");
-  const tot=r=>{const a=items.filter(i=>i.r===r);return [a.filter(isDone).length,a.length]};
-  let h=`<div class="wrap"><header><h1>实习投递</h1><div class="sub"><span>勾选自动保存</span><span class="save" id="save"></span></div></header>
-  <div class="tabs" role="tablist">${RG.map(([k,l])=>{const[d,n]=tot(k);return `<button class="tab" role="tab" data-tab="${k}" aria-selected="${region===k}"><b>${l}</b><span>${d} / ${n}</span></button>`}).join("")}</div>`;
-  for(const[ch,label,ph1,ph2] of CH){
-    const rows=items.filter(i=>i.r===region&&i.ch===ch);
-    const d=rows.filter(isDone).length;
-    const extra=ch==="li"?` · 已 Connect ${rows.filter(i=>i.c).length}`:"";
-    h+=`<section><div class="sh"><h2>${label}</h2><span class="cnt">完成 ${d} / ${rows.length}${extra}</span></div><div class="list">`;
-    if(!rows.length)h+=`<div class="empty">还没有，在下面添加第一条。</div>`;
-    for(const i of rows){
-      const sub=ch==="gm"?`<span class="meta mono">${esc(i.sub)}</span>`:(i.sub?`<span class="meta">${esc(i.sub)}</span>`:"");
-      const ticks=ch==="li"
-        ?`<label class="tick"><input type="checkbox" data-k="c" data-id="${i.id}" ${i.c?"checked":""}>Connect</label><label class="tick"><input type="checkbox" data-k="m" data-id="${i.id}" ${i.m?"checked":""}>私信</label>`
-        :`<label class="tick"><input type="checkbox" data-k="done" data-id="${i.id}" ${i.done?"checked":""}>${ch==="gm"?"已发":"已投"}</label>`;
-      h+=`<div class="row${isDone(i)?" done":""}"><div class="who"><span class="name">${esc(i.name)}</span>${sub}${i.note?`<span class="note">${esc(i.note)}</span>`:""}${i.date?`<span class="date">${fmtDate(i.date)}</span>`:""}</div>
-      <div class="ticks">${ticks}<button class="del${armed===i.id?" arm":""}" data-del="${i.id}" aria-label="删除 ${esc(i.name)}">${armed===i.id?"确认删除":"×"}</button></div></div>`;
+  let h=`<div class="wrap"><header><h1>实习投递</h1><div class="sub"><span>勾选自动保存</span><span class="save" id="save"></span></div></header><div class="cols">`;
+  for(const[rg,rl] of RG){
+    const all=items.filter(i=>i.r===rg);
+    h+=`<div class="col"><div class="colh"><b>${rl}</b><span>完成 ${all.filter(isDone).length} / ${all.length}</span></div>`;
+    for(const[ch,label,ph1,ph2] of CH){
+      const rows=all.filter(i=>i.ch===ch);
+      const d=rows.filter(isDone).length;
+      const extra=ch==="li"?` · 已 Connect ${rows.filter(i=>i.c).length}`:"";
+      h+=`<section><div class="sh"><h2>${label}</h2><span class="cnt">完成 ${d} / ${rows.length}${extra}</span></div><div class="list">`;
+      if(!rows.length)h+=`<div class="empty">还没有，在下面添加第一条。</div>`;
+      for(const i of rows){
+        const sub=ch==="gm"?`<span class="meta mono">${esc(i.sub)}</span>`:(i.sub?`<span class="meta">${esc(i.sub)}</span>`:"");
+        const ticks=ch==="li"
+          ?`<label class="tick"><input type="checkbox" data-k="c" data-id="${i.id}" ${i.c?"checked":""}>Connect</label><label class="tick"><input type="checkbox" data-k="m" data-id="${i.id}" ${i.m?"checked":""}>私信</label>`
+          :`<label class="tick"><input type="checkbox" data-k="done" data-id="${i.id}" ${i.done?"checked":""}>${ch==="gm"?"已发":"已投"}</label>`;
+        h+=`<div class="row${isDone(i)?" done":""}"><div class="who"><span class="name">${esc(i.name)}</span>${sub}${i.note?`<span class="note">${esc(i.note)}</span>`:""}${i.date?`<span class="date">${fmtDate(i.date)}</span>`:""}</div>
+        <div class="ticks">${ticks}<button class="del${armed===i.id?" arm":""}" data-del="${i.id}" aria-label="删除 ${esc(i.name)}">${armed===i.id?"确认删除":"×"}</button></div></div>`;
+      }
+      h+=`<form class="add" data-r="${rg}" data-ch="${ch}"><input id="a1-${rg}-${ch}" placeholder="${ph1}" aria-label="${rl} ${label} ${ph1}" required><input id="a2-${rg}-${ch}" placeholder="${ph2}" aria-label="${rl} ${label} ${ph2}"><button type="submit">添加</button></form></div></section>`;
     }
-    h+=`<form class="add" data-ch="${ch}"><input id="a1-${region}-${ch}" placeholder="${ph1}" aria-label="${ph1}" required><input id="a2-${region}-${ch}" placeholder="${ph2}" aria-label="${ph2}"><button type="submit">添加</button></form></div></section>`;
+    h+=`</div>`;
   }
-  h+=`</div>`;
+  h+=`</div></div>`;
   root.innerHTML=h;
   showSave();
 }
@@ -122,8 +124,6 @@ document.addEventListener("change",e=>{
   render();save();
 });
 document.addEventListener("click",e=>{
-  const tab=e.target.closest("[data-tab]");
-  if(tab){region=tab.dataset.tab;armed=null;try{localStorage.setItem(LS+"-tab",region)}catch(x){};render();return;}
   const del=e.target.closest("[data-del]");
   if(del){
     const id=del.dataset.del;
@@ -137,7 +137,7 @@ document.addEventListener("submit",e=>{
   const [a,b]=f.querySelectorAll("input");
   const name=a.value.trim(); if(!name)return;
   const n=items.reduce((mx,x)=>Math.max(mx,+String(x.id).slice(1)||0),0)+1;
-  items.push({id:"i"+n,r:region,ch:f.dataset.ch,name,sub:b.value.trim(),note:"",date:"",c:false,m:false,done:false});
+  items.push({id:"i"+n,r:f.dataset.r,ch:f.dataset.ch,name,sub:b.value.trim(),note:"",date:"",c:false,m:false,done:false});
   render();save();
   const again=document.getElementById(a.id); if(again)again.focus();
 });
